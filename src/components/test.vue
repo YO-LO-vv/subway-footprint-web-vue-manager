@@ -1,13 +1,12 @@
 <template>
   <div>
-    <el-button>woce</el-button>
-    <el-button type="success">Success</el-button>
+    1111
   </div>
 </template>
 
 <script>
 export default {
-  name: 'cenima'
+  
 }
 </script>
 
