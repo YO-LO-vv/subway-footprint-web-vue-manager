@@ -28,19 +28,23 @@
         </div>
         <!-- 分页 -->
         <div class="pagination">
-            <el-pagination layout="prev, pager, next" :total="1000" />
+            <el-pagination layout="prev, pager, next" :total="1000" 
+            @current-change="currentChange" :hide-on-single-page='true'
+            background :page-size="7"/>
         </div>
     </div>
 </template>
 
 <script>
 import {Search} from '@element-plus/icons-vue'
-import { markRaw,ref,reactive} from 'vue';
+import { markRaw,ref,reactive,onMounted} from 'vue';
 export default {
     components:{     
         Search:markRaw(Search),
     },
     setup() {
+        //请求数据
+        onMounted
         const queryInfo=ref('')
         const tableData = reactive([
             {
@@ -48,8 +52,32 @@ export default {
                 variety:'1',
                 name:'ce',
                 num:'23'
+            },
+            {
+                aid:'2',
+                variety:'1',
+                name:'ce',
+                num:'23'
+            },
+            {
+                aid:'2',
+                variety:'1',
+                name:'ce',
+                num:'23'
+            },
+            {
+                aid:'2',
+                variety:'1',
+                name:'ce',
+                num:'23'
+            },
+            {
+                aid:'2',
+                variety:'1',
+                name:'ce',
+                num:'23'
             }
-
+            
         ])
         const findGood=()=>{
             console.log(queryInfo.value)

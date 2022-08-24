@@ -119,8 +119,6 @@
     max-width: 1200px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* height: inherit; */
     bottom: 0px;
 }
 
@@ -138,17 +136,12 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    top:0px;
+    /* top:0px; */
+    align-self: flex-start;
 }
 
 .pagination{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* position: fixed; */
-    
-    width: 100%;
-    height: 50px;
-    align-self: flex-end;
-    bottom: 0px;
+    position: fixed;
+    bottom: 50px;
+    align-self: center;
 }
