@@ -25,3 +25,7 @@ export function getAllAwards(params) {
 export function login(params){
     return http.post("/manager/login",params)
 }
+
+export function getMerchant(params){
+    return http.get("/merchant/getMerchant",params)
+}

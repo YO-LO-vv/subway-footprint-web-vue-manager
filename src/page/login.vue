@@ -70,13 +70,17 @@ export default {
             password: LoginForm.pass
           }).then((res) => {
               //存储token
+            if(res.data.code==200) {
               const tokenStr = res.data.data;
               window.sessionStorage.setItem('tokenStr', tokenStr);
-              localStorage.setItem("uid",LoginForm.user);
-              ElMessage.success(LoginForm.user);
+              localStorage.setItem("uid", LoginForm.user);
+              ElMessage.success(window.sessionStorage.getItem('tokenStr'));
               console.log(tokenStr)
               ElMessage.success('welcome');
               router.push('/index/toDo');
+            }else{
+              ElMessage.error(res.data.message);
+            }
           }).catch((err) => console.log(err));
         }});
     }
