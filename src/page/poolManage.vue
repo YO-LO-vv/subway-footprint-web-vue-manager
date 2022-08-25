@@ -22,26 +22,33 @@
             <!-- 伪分页设计 芜湖 -->
             <el-table id="poolTable" :data="tableData.arr.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
             style="width: 100%" class="awa-tab">
-                <el-table-column prop="aid" label="Aid" min-width="100"/>
-                <el-table-column prop="variety" label="种类" min-width="100"/>
-                <el-table-column prop="name" label="名称" min-width="100"/>
-                <el-table-column prop="num" label="数量" min-width="100"/>
-                <el-table-column
-                    prop="status"
-                    label="状态"
-                    min-width="100"
-                    :filters="[
-                        { text: '上架中', value: 'On' },
-                        { text: '未上架', value: 'Off' },
-                    ]"
-                    :filter-method="filterTag"
-                    filter-placement="bottom-end"
-                    >
+                <el-table-column prop="aid" label="奖品编号" min-width="100"/>
+                <el-table-column prop="variety" label="奖品种类" min-width="100"/>
+                <el-table-column prop="name" label="奖品名称" min-width="100"/>
+                <el-table-column prop="num" label="剩余数量" min-width="100"/>
+                <!-- 状态栏 -->
+                <el-table-column label="当前状态" min-width="180">
+                    <template #default="scope">       
+                        <el-tag type="info" v-if="scope.row.status== '0'">未上架</el-tag>   
+                        <el-tag  v-else>已上架</el-tag>   
+                    </template>
+                </el-table-column>
+                <!-- 操作栏 -->
+                <el-table-column label="操作" min-width="150">
                     <template #default="scope">
-                        <el-tag
-                        :type="scope.row.tag === 'Home' ? '' : 'success'"
-                        disable-transitions
-                        >{{ scope.row.tag }}</el-tag
+                        <el-button size="small" @click="handleEdit(scope.$index)"
+                        >编辑</el-button
+                        >
+                        <el-button size="small" @click="handleUpDown(scope.$index, scope.row)" 
+                        type="success" v-if="scope.row.status==0"
+                        >上架</el-button>
+                        <el-button size="small" @click="handleUpDown(scope.$index)" 
+                        type="info" v-else>下架</el-button>
+                        <el-button
+                        size="small"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)"
+                        >删除</el-button
                         >
                     </template>
                 </el-table-column>
@@ -54,12 +61,129 @@
             background :page-size="pageSize" v-model:current-page="currentPage"/>
         </div>
     </div>
+    <el-dialog
+        v-model="dialogVisible"
+        title="奖品详情"
+        width="50%"
+        
+    >
+    <!-- 第一行 -->
+        <el-row>   
+        <el-col :span="11">   
+            <el-form  :model="formInline">
+                <el-form-item label="奖品编号">
+                    <el-input v-model="formInline.now_award.aid" placeholder="{{formInline.now_award.aid}}" disabled/>
+                </el-form-item>
+            </el-form>
+        </el-col> 
+        <el-col :span="2"/> 
+        <el-col :span="11"> 
+            <el-form>
+                <el-form-item label="奖品类型">
+                    <el-select v-model="formInline.now_award.variety" placeholder="{{formInline.now_award.variety}}">
+                        <el-option label="实体物品" value="实体物品" />
+                        <el-option label="系统称号" value="系统称号" />
+                        <el-option label="碳积分" value="碳积分" />
+                        <el-option label="优惠券" value="优惠券" />
+                    </el-select>
+                </el-form-item>
+            </el-form>     
+        </el-col> 
+        </el-row> 
+    <!-- 第二行 -->
+        <el-row>   
+        <el-col :span="11">   
+            <el-form  :model="formInline">
+                <el-form-item label="奖品名称">
+                    <el-input v-model="formInline.now_award.name" placeholder="{{formInline.now_award.name}}" />
+                </el-form-item>
+            </el-form>
+        </el-col> 
+        <el-col :span="2"/> 
+        <el-col :span="11"> 
+            <el-form  :model="formInline">
+                <el-form-item label="剩余数量">
+                    <el-input v-model="formInline.now_award.num" placeholder="{{formInline.now_award.num}}" />
+                </el-form-item>
+            </el-form>    
+        </el-col> 
+        </el-row> 
+    <!-- 第三行 -->
+        <el-row>   
+        <el-col :span="11">   
+            <el-form  :model="formInline">
+                <el-form-item label="对应碳积分">
+                    <el-input v-model="formInline.now_award.credit" placeholder="{{formInline.now_award.credit}}" />
+                </el-form-item>
+            </el-form>
+        </el-col> 
+        <el-col :span="2"/> 
+        <el-col :span="11"> 
+            <el-form  :model="formInline">
+                <el-form-item label="商户编号">
+                    <el-input v-model="formInline.now_award.mid" placeholder="{{formInline.now_award.mid}}" 
+                    disabled v-if="formInline.now_award.mid"/>
+                    <el-input placeholder="系统提供" disabled v-else/>
+                </el-form-item>
+            </el-form>    
+        </el-col> 
+        </el-row>
+    <!-- 第四行 -->
+        <el-row>   
+        <el-col :span="11">   
+            <el-form  :model="formInline">
+                <el-form-item label="提供日期">
+                    <el-input v-model="formInline.now_award.fromdate" placeholder="{{formInline.now_award.fromdate}}" disabled/>
+                </el-form-item>
+            </el-form>
+        </el-col> 
+        <el-col :span="2"/> 
+        <el-col :span="11"> 
+            <el-form  :model="formInline">
+                <el-form-item label="截止日期">
+                    <!-- 日期选择器 不会 -->
+                    <!-- <div class="block">
+                        <el-date-picker
+                            v-model="formInline.now_award.todate"
+                            type="datetime"
+                            placeholder="{{formInline.now_award.todate}}"
+                        />
+                        </div> -->
+                    <el-input v-model="formInline.now_award.todate" placeholder="{{formInline.now_award.todate}}" disabled/>
+                </el-form-item>
+            </el-form>    
+        </el-col> 
+        </el-row>
+    <!-- 第五行 -->
+     <el-form  :model="formInline">
+        <el-form-item label="奖品内容">
+            <el-input v-model="formInline.now_award.content" placeholder="{{formInline.now_award.content}}" 
+            type="textarea" />
+        </el-form-item>
+    </el-form>
+
+        <!-- <template #footer class="dialog-foot">
+            <span class="dialog-footer">
+                <el-button type="primary" @click="dialogVisible = false" 
+                >确认</el-button
+                >
+            </span>
+        </template> -->
+        <div class="dialog-foot">
+        <el-button type="primary" @click="editDown" 
+                >确认</el-button
+                >
+        </div>
+    </el-dialog>
 </template>
 
 <script>
+import {ElMessage} from 'element-plus'
 import {Search} from '@element-plus/icons-vue'
-import { markRaw,ref,reactive,onMounted} from 'vue';
+import {markRaw,ref,reactive,onMounted} from 'vue';
 import {getAllAwards} from '../../api/api'
+import _ from 'lodash' //导入loadsh插件
+
 export default {
     components:{     
         Search:markRaw(Search),
@@ -73,21 +197,19 @@ export default {
         
         const queryInfo=ref('')
         const tableData = reactive({
-            arr:[
-           ]})
+            arr:[]
+            })
         const findGood=()=>{
             console.log(queryInfo.value)
         }
         //页码更换
-        //const totalPage=ref(tableData.length)
         const currentPage=ref(1)
         const pageSize=ref(5)
         const handleChange=()=>{
             console.log(currentPage.value)
-            console.log(tableData.value)
+            console.log(tableData.arr[formInline.which_one])
         }
         //数据更新
-        
         function sync(){
             getAllAwards({
              })
@@ -98,8 +220,48 @@ export default {
             })
             .catch((err) => console.log(err));
         }
+        //数据同步
 
-        return{queryInfo,findGood,tableData,currentPage,pageSize,handleChange}
+
+        //编辑操作
+        const handleEdit = (index) => {
+            dialogVisible.value=true
+            formInline.which_one=index+(pageSize.value)*(currentPage.value-1)
+            formInline.now_award=_.cloneDeep(tableData.arr[formInline.which_one])
+            console.log('开始编辑')
+            console.log(formInline.which_one)
+            console.log(formInline.now_award)
+        }
+        const editDown = ()=>{
+            console.log('完成编辑')
+            dialogVisible.value = false
+            tableData.arr[formInline.which_one]=formInline.now_award
+            ElMessage({
+                message: '信息编辑成功',
+                type: 'success',
+            })
+        }
+        
+        //上下架处理
+        const handleUpDown=(index)=>{
+            formInline.which_one=index+(pageSize.value)*(currentPage.value-1)
+            tableData.arr[formInline.which_one].status=tableData.arr[formInline.which_one].status==1? 0:1
+            ElMessage({
+                message: tableData.arr[formInline.which_one].status==0?'下架成功':'上架成功',
+                type: 'success',
+            })
+        }
+
+        //编辑页面 被选中奖品
+        const dialogVisible = ref(false)
+        const formInline = reactive({
+            which_one:0,
+            now_award:{}
+        })
+        return{queryInfo,findGood,tableData,currentPage,pageSize,handleChange,handleEdit,
+        dialogVisible,formInline,editDown,handleUpDown}
+
+
     },
 }
 </script>
