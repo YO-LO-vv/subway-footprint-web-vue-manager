@@ -15,13 +15,7 @@
           <el-input v-model="LoginForm.pass" placeholder="请输入密码" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-link :underline="false" style=" float: left" class="header link" href="/student/register">
-            注册
-          </el-link>
-          <el-link :underline="false" style=" float: right" class="header link" href="/student/FindPW">
-            忘记密码
-          </el-link>
-          <el-button style="width: 100%;" type="primary" @click="submitForm('LoginForm')">登录</el-button>
+          <el-button style="width: 100%;" type="primary" @click="submitForm()">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -68,16 +62,18 @@ export default {
       ],
     })
 
-    const submitForm = (LoginForm) =>{
+    const submitForm = () =>{
       LoginRef.value.validate((valid) => {
         if (valid) {
           login({
-            acount: LoginForm.user,
+            account: LoginForm.user,
             password: LoginForm.pass
           }).then((res) => {
               //存储token
               const tokenStr = res.data.data;
               window.sessionStorage.setItem('tokenStr', tokenStr);
+              localStorage.setItem("uid",LoginForm.user);
+              ElMessage.success(LoginForm.user);
               console.log(tokenStr)
               ElMessage.success('welcome');
               router.push('/index/toDo');
@@ -101,7 +97,7 @@ export default {
 .registerContainer {
   border-radius: 15px;
   background-clip: padding-box;
-  margin: 100px 600px auto;
+  margin: 200px 800px auto;
   width: 350px;
   padding: 5px 15px 5px 15px;
   background: rgba(255, 255, 255, 0.8);

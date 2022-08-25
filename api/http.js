@@ -29,7 +29,7 @@ const http = {
             if (params) config.params = params
             
             return request(config)
-        },
+        }
     }
     
 //暴露接口，允许Vue文件或其他js,ts文件使用http结构体中的方法
