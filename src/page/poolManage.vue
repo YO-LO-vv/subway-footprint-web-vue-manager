@@ -29,8 +29,8 @@
         <!-- 分页 -->
         <div class="pagination">
             <el-pagination layout="prev, pager, next" :total="1000" 
-            @current-change="currentChange" :hide-on-single-page='true'
-            background :page-size="7"/>
+            @current-change="handleChange" :hide-on-single-page='true'
+            background :page-size="7" v-model:current-page="currentPage"/>
         </div>
     </div>
 </template>
@@ -45,6 +45,7 @@ export default {
     setup() {
         //请求数据
         onMounted
+        
         const queryInfo=ref('')
         const tableData = reactive([
             {
@@ -82,7 +83,12 @@ export default {
         const findGood=()=>{
             console.log(queryInfo.value)
         }
-        return{queryInfo,findGood,tableData}
+        //页码更换
+        const currentPage=ref(1)
+        const handleChange=()=>{
+            console.log(currentPage.value)
+        }
+        return{queryInfo,findGood,tableData,currentPage,handleChange}
     },
 }
 </script>
