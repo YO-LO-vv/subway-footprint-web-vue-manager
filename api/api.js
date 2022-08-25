@@ -26,6 +26,14 @@ export function login(params){
     return http.post("/manager/login",params)
 }
 
-export function getMerchant(params){
-    return http.get("/merchant/getMerchant",params)
+export function getMerchant(){
+    return http.post("/merchant/getMerchant")
+}
+
+export function getCode(params){
+    return http.post("/merchant/sendRegistEmail",params)
+}
+
+export function regist(params){
+    return http.post("/merchant/regist",params)
 }

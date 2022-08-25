@@ -70,7 +70,7 @@ export default {
             password: LoginForm.pass
           }).then((res) => {
               //存储token
-            if(res.data.code==200) {
+            if(res.data.code===200) {
               const tokenStr = res.data.data;
               window.sessionStorage.setItem('tokenStr', tokenStr);
               localStorage.setItem("uid", LoginForm.user);
