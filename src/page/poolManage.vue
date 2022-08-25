@@ -19,18 +19,39 @@
         </div>
         <!-- 奖品表格 -->
         <div class="table">
-            <el-table id="poolTable" :data="tableData" style="width: 100%" class="awa-tab" >
+            <!-- 伪分页设计 芜湖 -->
+            <el-table id="poolTable" :data="tableData.arr.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
+            style="width: 100%" class="awa-tab">
                 <el-table-column prop="aid" label="Aid" min-width="100"/>
                 <el-table-column prop="variety" label="种类" min-width="100"/>
                 <el-table-column prop="name" label="名称" min-width="100"/>
                 <el-table-column prop="num" label="数量" min-width="100"/>
+                <el-table-column
+                    prop="status"
+                    label="状态"
+                    min-width="100"
+                    :filters="[
+                        { text: '上架中', value: 'On' },
+                        { text: '未上架', value: 'Off' },
+                    ]"
+                    :filter-method="filterTag"
+                    filter-placement="bottom-end"
+                    >
+                    <template #default="scope">
+                        <el-tag
+                        :type="scope.row.tag === 'Home' ? '' : 'success'"
+                        disable-transitions
+                        >{{ scope.row.tag }}</el-tag
+                        >
+                    </template>
+                </el-table-column>
             </el-table>
         </div>
         <!-- 分页 -->
         <div class="pagination">
-            <el-pagination layout="prev, pager, next" :total="1000" 
+            <el-pagination layout="prev, pager, next" :total="tableData.arr.length" 
             @current-change="handleChange" :hide-on-single-page='true'
-            background :page-size="7" v-model:current-page="currentPage"/>
+            background :page-size="pageSize" v-model:current-page="currentPage"/>
         </div>
     </div>
 </template>
@@ -38,57 +59,47 @@
 <script>
 import {Search} from '@element-plus/icons-vue'
 import { markRaw,ref,reactive,onMounted} from 'vue';
+import {getAllAwards} from '../../api/api'
 export default {
     components:{     
         Search:markRaw(Search),
     },
     setup() {
-        //请求数据
-        onMounted
+        //挂载
+        onMounted(()=>{
+            console.log("mounted")
+            sync()
+        })
         
         const queryInfo=ref('')
-        const tableData = reactive([
-            {
-                aid:'2',
-                variety:'1',
-                name:'ce',
-                num:'23'
-            },
-            {
-                aid:'2',
-                variety:'1',
-                name:'ce',
-                num:'23'
-            },
-            {
-                aid:'2',
-                variety:'1',
-                name:'ce',
-                num:'23'
-            },
-            {
-                aid:'2',
-                variety:'1',
-                name:'ce',
-                num:'23'
-            },
-            {
-                aid:'2',
-                variety:'1',
-                name:'ce',
-                num:'23'
-            }
-            
-        ])
+        const tableData = reactive({
+            arr:[
+           ]})
         const findGood=()=>{
             console.log(queryInfo.value)
         }
         //页码更换
+        //const totalPage=ref(tableData.length)
         const currentPage=ref(1)
+        const pageSize=ref(5)
         const handleChange=()=>{
             console.log(currentPage.value)
+            console.log(tableData.value)
         }
-        return{queryInfo,findGood,tableData,currentPage,handleChange}
+        //数据更新
+        
+        function sync(){
+            getAllAwards({
+             })
+            .then((res) => {
+                console.log(res);
+                console.log(res.data.data);
+                tableData.arr=res.data.data
+            })
+            .catch((err) => console.log(err));
+        }
+
+        return{queryInfo,findGood,tableData,currentPage,pageSize,handleChange}
     },
 }
 </script>

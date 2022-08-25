@@ -17,3 +17,7 @@ export function getAward(params) {
 export function getAllSubways(params) {
     return http.get("/Subway/getAllSubways",params)
 }
+
+export function getAllAwards(params) {
+    return http.post("/award/getAllAwards",params)
+}
