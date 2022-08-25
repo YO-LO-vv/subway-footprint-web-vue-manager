@@ -2,7 +2,7 @@
     <div id="backcont">
         <div class="dz-content">
             <div class="login-cont">
-                <div class="dz-title">芝士雪豹 </div>
+                <div class="dz-title">地铁足迹系统 </div>
                 <div class="dz-user">
                     <p>账号</p>
                     <el-input v-model="account" placeholder="请输入账号" flex="1"/>
@@ -24,7 +24,7 @@
 
 <script>
 import {reactive, toRefs} from 'vue'
-
+import {useRouter} from 'vue-router'
 export default{
     setup(){
         const user=reactive({
@@ -32,9 +32,10 @@ export default{
             password:'',
             regi:'注册'
         })
-
+        const router = useRouter()
         const signin= ()=>{
-
+            router.push({name:'index'})
+            localStorage.setItem('menuid',JSON.stringify('0'))//缓存本地
         }
 
          const regis= ()=>{

@@ -1,6 +1,6 @@
 <template>
     <div id="backcont">
-        <el-container>
+        <el-container class="big-box">
             <el-header class="top-bar">
                 <p class="lt-title">地铁足迹系统管理员端</p>
                 <div>
@@ -12,89 +12,88 @@
                     text-color="#fff"
                     active-text-color="#ffd04b"
                     @select="handleSelect"
-                    show-overflow-toolt
                     >
-                        <!-- <el-menu-item index="1">
-                            <el-icon><Setting /></el-icon>
-                            <span>奖池管理</span>
-                        </el-menu-item>
-                        <el-menu-item index="2">
-                            <el-icon><Search /></el-icon>
-                            <span>信息查询</span>
-                        </el-menu-item>
-                        <el-menu-item index="3">
-                            <el-icon><Avatar /></el-icon>
-                            <span>商户认证</span>
-                        </el-menu-item>
-                        <el-menu-item index="4">
-                            <el-icon><Histogram /></el-icon>
-                            <span>参数修改</span>
-                        </el-menu-item>
-                         <el-menu-item index="5">
-                            
-                            <span>更多</span>
-                        </el-menu-item> -->
                         <div v-for="(item,index) in menu" :key="index">
-                            <el-menu-item :index="item.id">
-                                <el-icon>
-                                    <!-- 展示组件 -->
-                                    <component v-if="item.icon!=''" :is="item.icon">
-                                    </component>
-                                </el-icon>
-                                <span>{{item.title}}</span>
-                            </el-menu-item>
+                            <router-link :to="{path:item.router}">
+                                <el-menu-item :index="item.id" >
+                                    <el-icon>
+                                        <!-- 展示组件 -->
+                                        <component v-if="item.icon!=''" :is="item.icon">
+                                        </component>
+                                    </el-icon>
+                                    <span>{{item.title}}</span>
+                                </el-menu-item>
+                            </router-link>
                         </div>
                     </el-menu>
                     </div>   
-                <el-button type="danger" >退出登录</el-button>
+                <el-button type="danger" @click="exit" >退出登录</el-button>
             </el-header>
-            <el-main>Main</el-main>
+            <el-main class="body-part">
+                <router-view/>
+            </el-main>
         </el-container>
     </div>
 </template>
 
 <script>
-import {reactive, ref,markRaw} from 'vue'
-import {Setting,Histogram,Search,Avatar} from '@element-plus/icons-vue'
+import {reactive, ref,markRaw,onMounted} from 'vue'
+import {Setting,Histogram,Search,Avatar, Finished} from '@element-plus/icons-vue'
+import {useRouter} from 'vue-router'
 export default{
     components:{
         Setting:markRaw(Setting),
         Avatar:markRaw(Avatar),
         Search:markRaw(Search),
-        Histogram:markRaw(Histogram)
+        Histogram:markRaw(Histogram),
+        Finished:markRaw(Finished)
     },
     setup(){
-        const activeIndex = ref('1')
+        const router=useRouter()
+        //菜单激活回调
+        const activeIndex = ref('0')
         const handleSelect = (key, keyPath) => {
             console.log(key, keyPath)
+            localStorage.setItem('menuid',JSON.stringify(key))//缓存本地
         }
+        onMounted(()=>{
+            activeIndex.value = JSON.parse(localStorage.getItem('menuid'))
+        })
+        //菜单条目
         const menuArray = [
+            {
+                id:'0',
+                icon:Finished,
+                title:'代办事项',
+                router:'toDo',
+                Subclass:[]
+            },
             {
                 id:'1',
                 icon:Setting,
                 title:'奖池管理',
-                router:'',
+                router:'poolManage',
                 Subclass:[]
             },
             {
                 id:'2',
                 icon:Avatar,
                 title:'信息查询',
-                router:'',
+                router:'searchInfo',
                 Subclass:[]
             },
             {
                 id:'3',
                 icon:Search,
                 title:'商户认证',
-                router:'',
+                router:'verifyMerc',
                 Subclass:[]
             },
             {
                 id:'4',
                 icon:Histogram,
-                title:'信息修改',
-                router:'',
+                title:'参数修改',
+                router:'changePara',
                 Subclass:[]
             },
             {
@@ -105,8 +104,12 @@ export default{
                 Subclass:[]
             }
         ]
+
+        const exit = ()=>{
+            router.push({name:'login'})
+        }
         const menu=reactive(menuArray)
-        return{activeIndex,handleSelect,menu}
+        return{activeIndex,handleSelect,menu,exit}
     }
 }
 </script>
