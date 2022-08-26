@@ -300,7 +300,7 @@
 import {ElMessage,ElNotification} from 'element-plus'
 import {Search,Upload} from '@element-plus/icons-vue'
 import {markRaw,ref,reactive,onMounted} from 'vue';
-import {getAllAwards,getAward,getMerchantAwards,deleteAward,addAward} from '../../api/api'
+import {getAllAwards,getAward,getMerchantAwards,deleteAward,addAward,updateAward} from '../../api/api'
 import _ from 'lodash' //导入loadsh插件
 
 export default {
@@ -401,7 +401,27 @@ export default {
             .catch((err) => console.log(err));
         }
         //数据更新
-
+        function upda(){
+            let dz=formInline.which_one;
+            console.log(dz)
+            updateAward({
+                aid:tableData.arr[dz].aid,
+                variety: tableData.arr[dz].variety, 
+                num: tableData.arr[dz].num,
+                name: tableData.arr[dz].name, 
+                content: tableData.arr[dz].content, 
+                credit: tableData.arr[dz].credit,
+                todate: tableData.arr[dz].todate, 
+                mid: tableData.arr[dz].mid,
+                status: tableData.arr[dz].status
+             })
+            .then((res) => {
+                console.log(tableData.arr[dz])
+                console.log(res);
+                sync()
+            })
+            .catch((err) => console.log(err));
+        }
         //奖品增加
         const handleAdd=()=>{
             dialogVisible2.value=true;
@@ -432,6 +452,7 @@ export default {
 
         //奖品删除
         const handleDelete=(index)=>{
+
             formInline.which_one=index+(pageSize.value)*(currentPage.value-1)
             let delID=tableData.arr[formInline.which_one].aid
             console.log(delID)
@@ -458,6 +479,7 @@ export default {
             console.log('完成编辑')
             dialogVisible.value = false
             tableData.arr[formInline.which_one]=formInline.now_award
+            upda()
             ElMessage({
                 message: '信息编辑成功',
                 type: 'success',
@@ -468,6 +490,7 @@ export default {
         const handleUpDown=(index)=>{
             formInline.which_one=index+(pageSize.value)*(currentPage.value-1)
             tableData.arr[formInline.which_one].status=tableData.arr[formInline.which_one].status==1? 0:1
+            upda()
             ElMessage({
                 message: tableData.arr[formInline.which_one].status==0?'下架成功':'上架成功',
                 type: 'success',

@@ -33,3 +33,7 @@ export function deleteAward(params) {
 export function addAward(params) {
     return http.post("/award/addAward", params)
 }
+
+export function updateAward(params) {
+    return http.post("/award/updateAward", params)
+}
