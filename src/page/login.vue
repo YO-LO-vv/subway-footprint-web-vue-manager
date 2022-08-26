@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title" style="font-size:50px">subway-footprint（商户端）</h1>
+    <h1 class="title" style="font-size:50px">subway-footprint（管理员端）</h1>
     <div class="background">
       <img :src="imgSrc" style="width: 100%; height: 100%" alt=""/>
     </div>
@@ -77,7 +77,7 @@ export default {
               ElMessage.success(window.sessionStorage.getItem('tokenStr'));
               console.log(tokenStr)
               ElMessage.success('welcome');
-              router.push('/index/toDo');
+              router.push('/toDo');
             }else{
               ElMessage.error(res.data.message);
             }
