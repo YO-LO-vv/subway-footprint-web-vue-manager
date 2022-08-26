@@ -145,3 +145,9 @@
     bottom: 50px;
     align-self: center;
 }
+
+.dialog-foot{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
