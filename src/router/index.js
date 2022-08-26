@@ -23,21 +23,16 @@ const routes=[
                 path:'/poolManage',
                 name:'poolManage',
                 component:()=>import(/*webpackChunckName:'Index*/ '@/page/poolManage.vue'),
-            },
-            {   //信息查询
-                path:'/searchInfo',
-                name:'searchInfo',
-                component:()=>import(/*webpackChunckName:'Index*/ '@/page/searchInfo.vue'),
-            },
+            }, 
             {   //商户认证
                 path:'/verifyMerc',
                 name:'verifyMerc',
                 component:()=>import(/*webpackChunckName:'Index*/ '@/page/verifyMerc.vue'),
             },
-            {   //参数修改
-                path:'/changePara',
-                name:'changePara',
-                component:()=>import(/*webpackChunckName:'Index*/ '@/page/changePara.vue'),
+            {   //系统运维
+                path:'/systemTend',
+                name:'changeTend',
+                component:()=>import(/*webpackChunckName:'Index*/ '@/page/systemTend.vue'),
             },
         ]
 
