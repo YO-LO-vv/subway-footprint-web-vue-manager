@@ -6,21 +6,13 @@
 
 <script>
 
-import {getAward} from '../../api/api'
+
 
 export default{
     setup(){
         const fas = ()=>{
-            // 发送请求标准流程
-             getAward({
-                aid:'1111'
-             })
-            .then((res) => {
-
-            console.log(res.data);
-            })
-            .catch((err) => console.log(err));
-
+            var key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
+            localStorage.setItem('token',JSON.stringify(key))//缓存本地
         }
         
         return {fas}

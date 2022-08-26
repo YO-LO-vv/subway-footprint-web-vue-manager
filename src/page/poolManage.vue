@@ -224,8 +224,6 @@ export default {
             ]
         })
         const findGood=()=>{
-            // console.log(searchItem.queryInfo)
-            // console.log(searchItem.selectInfo)
             if(searchItem.queryInfo==''){
                 sync()
                 return
@@ -250,12 +248,17 @@ export default {
             else if(searchItem.selectInfo=='商户编号'){
                 getMerchantAwards({
                     mid:searchItem.queryInfo
-                 }
-                //,     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
-                )
+                 })
                 .then((res) => {
                     console.log(res);
                     console.log(res.data.data);
+                    console.log(typeof(res.data.data));
+                    if(null==res.data.data){
+                        tableData.arr=[]
+                    }
+                    else{
+                        tableData.arr=_.cloneDeep(res.data.data)
+                    }
                 })
                 .catch((err) => console.log(err));
             }
