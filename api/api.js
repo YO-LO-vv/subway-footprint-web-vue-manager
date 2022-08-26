@@ -37,6 +37,7 @@ export function addAward(params) {
 
 export function updateAward(params) {
     return http.post("/award/updateAward", params)
+}
 
 export function login(params){
     return http.post("/manager/login",params)
