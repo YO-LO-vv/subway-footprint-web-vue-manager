@@ -19,7 +19,7 @@ const http = {
             if (params) config.data = params
             return request(config)
         },
-        post_q(url, params) {
+        post_q(url, params,token) {
             const config = {
                 method: 'post',
                 url: url
@@ -27,7 +27,11 @@ const http = {
             放在报文中，载体表达标准是JSON*/
             // if (params) config.data = params
             if (params) config.params = params
-            
+            if (token) {
+                //config.headers.accessToken = token;
+                console.log('token: '+token)    
+                config.headers.accessToken='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
+            }
             return request(config)
         },
     }

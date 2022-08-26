@@ -4,8 +4,18 @@
         <div>
             <el-row class="searchInput">
                 <el-col :span="5"/>
-                <el-col :span="13">
-                    <el-input placeholder="输入待查询奖品" v-model="queryInfo" clearable/>        
+                <el-col :span="11">
+                    <el-input placeholder="输入信息进行奖品查找" v-model="searchItem.queryInfo" clearable/>        
+                </el-col>
+                <el-col :span="2">
+                    <el-select v-model="searchItem.selectInfo"  placeholder="查询方式" >
+                        <el-option
+                            v-for="item in searchItem.options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                            />
+                    </el-select>
                 </el-col>
                 <el-col :span="2">
                     <el-button @click="findGood">
@@ -21,7 +31,7 @@
         <div class="table">
             <!-- 伪分页设计 芜湖 -->
             <el-table id="poolTable" :data="tableData.arr.slice((currentPage-1)*pageSize,currentPage*pageSize)" 
-            style="width: 100%" class="awa-tab">
+            style="width: 100%" class="awa-tab" empty-text="未查询到相关数据">
                 <el-table-column prop="aid" label="奖品编号" min-width="100"/>
                 <el-table-column prop="variety" label="奖品种类" min-width="100"/>
                 <el-table-column prop="name" label="奖品名称" min-width="100"/>
@@ -178,10 +188,10 @@
 </template>
 
 <script>
-import {ElMessage} from 'element-plus'
+import {ElMessage,ElNotification} from 'element-plus'
 import {Search} from '@element-plus/icons-vue'
 import {markRaw,ref,reactive,onMounted} from 'vue';
-import {getAllAwards} from '../../api/api'
+import {getAllAwards,getAward,getMerchantAwards} from '../../api/api'
 import _ from 'lodash' //导入loadsh插件
 
 export default {
@@ -194,13 +204,69 @@ export default {
             console.log("mounted")
             sync()
         })
-        
-        const queryInfo=ref('')
+        //表格数据
         const tableData = reactive({
             arr:[]
             })
+        //商品查找
+        const searchItem=reactive({
+            queryInfo:'',
+            selectInfo:'',
+            options:[
+                {
+                    value: '奖品编号',
+                    label: '奖品编号',
+                },
+                {
+                    value: '商户编号',
+                    label: '商户编号',
+                },        
+            ]
+        })
         const findGood=()=>{
-            console.log(queryInfo.value)
+            // console.log(searchItem.queryInfo)
+            // console.log(searchItem.selectInfo)
+            if(searchItem.queryInfo==''){
+                sync()
+                return
+            }
+            if(searchItem.selectInfo=='奖品编号'){
+                getAward({
+                    aid:searchItem.queryInfo
+                })
+                .then((res) => {
+                    console.log(res);
+                    console.log(res.data.data);
+                    console.log(typeof(res.data.data));
+                    if(null==res.data.data){
+                        tableData.arr=[]
+                    }
+                    else{
+                        tableData.arr=[_.cloneDeep(res.data.data)]
+                    }
+                })
+                .catch((err) => console.log(err));
+            }
+            else if(searchItem.selectInfo=='商户编号'){
+                getMerchantAwards({
+                    mid:searchItem.queryInfo
+                 }
+                //,     'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
+                )
+                .then((res) => {
+                    console.log(res);
+                    console.log(res.data.data);
+                })
+                .catch((err) => console.log(err));
+            }
+            else{
+                ElNotification({
+                    title: '注意！',
+                    message: '请选择查找模式',
+                    type: 'warning',
+                })
+                return
+            }
         }
         //页码更换
         const currentPage=ref(1)
@@ -216,7 +282,8 @@ export default {
             .then((res) => {
                 console.log(res);
                 console.log(res.data.data);
-                tableData.arr=res.data.data
+                console.log(typeof(res.data.data));
+                tableData.arr=_.cloneDeep(res.data.data)
             })
             .catch((err) => console.log(err));
         }
@@ -258,7 +325,7 @@ export default {
             which_one:0,
             now_award:{}
         })
-        return{queryInfo,findGood,tableData,currentPage,pageSize,handleChange,handleEdit,
+        return{searchItem,findGood,tableData,currentPage,pageSize,handleChange,handleEdit,
         dialogVisible,formInline,editDown,handleUpDown}
 
 

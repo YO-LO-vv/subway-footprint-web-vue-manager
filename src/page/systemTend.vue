@@ -1,6 +1,6 @@
 <template>
     <div class="ordering">
-        信息查询
+        系统运维
     </div>
 </template>
 
