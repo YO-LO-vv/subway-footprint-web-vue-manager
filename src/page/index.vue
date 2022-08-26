@@ -38,7 +38,7 @@
 
 <script>
 import {reactive, ref,markRaw,onMounted} from 'vue'
-import {Setting,Histogram,Search,Avatar, Finished} from '@element-plus/icons-vue'
+import {Setting,Histogram,Search,Avatar, Finished,Cpu} from '@element-plus/icons-vue'
 import {useRouter} from 'vue-router'
 export default{
     components:{
@@ -46,7 +46,8 @@ export default{
         Avatar:markRaw(Avatar),
         Search:markRaw(Search),
         Histogram:markRaw(Histogram),
-        Finished:markRaw(Finished)
+        Finished:markRaw(Finished),
+        Cpu:markRaw(Cpu)
     },
     setup(){
         const router=useRouter()
@@ -77,9 +78,9 @@ export default{
             },
             {
                 id:'2',
-                icon:Avatar,
-                title:'信息查询',
-                router:'searchInfo',
+                icon:Cpu,
+                title:'系统运维',
+                router:'systemTend',
                 Subclass:[]
             },
             {
@@ -91,13 +92,6 @@ export default{
             },
             {
                 id:'4',
-                icon:Histogram,
-                title:'参数修改',
-                router:'changePara',
-                Subclass:[]
-            },
-            {
-                id:'5',
                 icon:'',
                 title:'敬请期待',
                 router:'',

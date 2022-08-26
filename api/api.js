@@ -22,6 +22,10 @@ export function getAllAwards(params) {
     return http.post("/award/getAllAwards",params)
 }
 
+
+export function getMerchantAwards(params) {
+    return http.post_q("/award/getMerchantAwards", params)
+
 export function login(params){
     return http.post("/merchant/login",params)
 }

@@ -9,18 +9,17 @@ const Axios = axios.create({
     所以我在这块设置Content-Type*/
     headers: { 
         'Content-Type': 'application/json',
-        //'Access-Control-Allow-Origin': 'https://thelittlestar.cn:8088'
+        //token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
     },
-    /*这个配置很重要，允许axios携带用户Cookie到后端，不设置这个的话
-    Set-Cookie是无效的,除此之外,Chrome默认开启了SameSite检查，如果
-    后端不主动设置SameSite = none,Set-Cookie是无效的。详情请文章末尾
-    参考阮老师的SameSite讲解*/
-    //withCredentials: true
 });
 
 Axios.interceptors.request.use(req => {
     // 请求拦截处理
-    // console.log('这里是请求拦截器，我拦截了请求', req);
+    //添加token
+    if (localStorage.token) { //判断token是否存在
+        var token = JSON.parse(localStorage.getItem('token'))
+        req.headers.token = token;  //将token设置成请求头
+    }
     return req; 
 }, err => {
     console.log('在发送请求时发生错误，错误为', err);
