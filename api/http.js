@@ -7,9 +7,10 @@ const http = {
             } /*这里如果GET请求有参数，则携带上传入的参数，在
             URL中以？的方式放在请求链接中*/
             if (params) config.params = params
-            
+
             return request(config)
         },
+
         post(url, params) {
             const config = {
                 method: 'post',
@@ -29,7 +30,8 @@ const http = {
             if (params) config.params = params
             
             return request(config)
-        },
+        }
+
     }
     
 //暴露接口，允许Vue文件或其他js,ts文件使用http结构体中的方法

@@ -21,3 +21,19 @@ export function getAllSubways(params) {
 export function getAllAwards(params) {
     return http.post("/award/getAllAwards",params)
 }
+
+export function login(params){
+    return http.post("/merchant/login",params)
+}
+
+export function getMerchant(){
+    return http.post("/merchant/getMerchant")
+}
+
+export function getCode(params){
+    return http.post("/merchant/sendRegistEmail",params)
+}
+
+export function regist(params){
+    return http.post("/merchant/regist",params)
+}
