@@ -411,20 +411,19 @@ export default {
         }
 
         const addDown=()=>{
-            addAward()
-            // addAward({
-            //     variety: "优惠券", 
-            //     num: 200,
-            //     name: "蜜雪冰城优惠券", 
-            //     content: "蜜雪冰城优惠券，满50减30，可在蜜雪冰城商家使用", 
-            //     credit: 100, 
-            //     todate: "2023年8月25日17:13:57" 
-            //  })
-            // .then((res) => {
-            //     console.log(res);
-            //     sync()
-            // })
-            // .catch((err) => console.log(err));
+            addAward({
+                variety: formInline.now_award.variety, 
+                num: formInline.now_award.num,
+                name: formInline.now_award.name, 
+                content: formInline.now_award.content, 
+                credit: formInline.now_award.credit,
+                todate: formInline.now_award.todate 
+             })
+            .then((res) => {
+                console.log(res);
+                sync()
+            })
+            .catch((err) => console.log(err));
             console.log(formInline.now_award)
             dialogVisible2.value=false
             formInline.which_one=-1
