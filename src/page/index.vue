@@ -101,6 +101,9 @@ export default{
 
         const exit = ()=>{
             router.push({name:'login'})
+            if(localStorage.token){
+                localStorage.removeItem('token')
+            }
         }
         const menu=reactive(menuArray)
         return{activeIndex,handleSelect,menu,exit}

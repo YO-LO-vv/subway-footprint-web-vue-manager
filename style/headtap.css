@@ -145,3 +145,16 @@
     bottom: 50px;
     align-self: center;
 }
+
+.dialog-foot{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addAward{
+    margin-bottom: 30px;
+    float: right;
+    margin-right: 30px;
+
+}
