@@ -25,3 +25,11 @@ export function getAllAwards(params) {
 export function getMerchantAwards(params) {
     return http.post_q("/award/getMerchantAwards", params)
 }
+
+export function deleteAward(params) {
+    return http.post_q("/award/deleteAward", params)
+}
+
+export function addAward(params) {
+    return http.post("/award/addAward", params)
+}
