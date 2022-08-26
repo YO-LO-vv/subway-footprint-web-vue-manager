@@ -46,19 +46,10 @@
                 <!-- 操作栏 -->
                 <el-table-column label="操作" min-width="150">
                     <template #default="scope">
-                        <el-button size="small" @click="handleEdit(scope.$index)"
-                        >编辑</el-button
-                        >
-                        <el-button size="small" @click="handleUpDown(scope.$index, scope.row)" 
-                        type="success" v-if="scope.row.status==0"
-                        >上架</el-button>
-                        <el-button size="small" @click="handleUpDown(scope.$index)" 
-                        type="info" v-else>下架</el-button>
-                        <el-button
-                        size="small"
-                        type="danger"
-                        @click="handleDelete(scope.$index, scope.row)"
-                        >删除</el-button
+                        <el-tag
+                        :type="scope.row.tag === 'Home' ? '' : 'success'"
+                        disable-transitions
+                        >{{ scope.row.tag }}</el-tag
                         >
                     </template>
                 </el-table-column>
@@ -71,120 +62,6 @@
             background :page-size="pageSize" v-model:current-page="currentPage"/>
         </div>
     </div>
-    <el-dialog
-        v-model="dialogVisible"
-        title="奖品详情"
-        width="50%"
-        
-    >
-    <!-- 第一行 -->
-        <el-row>   
-        <el-col :span="11">   
-            <el-form  :model="formInline">
-                <el-form-item label="奖品编号">
-                    <el-input v-model="formInline.now_award.aid" placeholder="{{formInline.now_award.aid}}" disabled/>
-                </el-form-item>
-            </el-form>
-        </el-col> 
-        <el-col :span="2"/> 
-        <el-col :span="11"> 
-            <el-form>
-                <el-form-item label="奖品类型">
-                    <el-select v-model="formInline.now_award.variety" placeholder="{{formInline.now_award.variety}}">
-                        <el-option label="实体物品" value="实体物品" />
-                        <el-option label="系统称号" value="系统称号" />
-                        <el-option label="碳积分" value="碳积分" />
-                        <el-option label="优惠券" value="优惠券" />
-                    </el-select>
-                </el-form-item>
-            </el-form>     
-        </el-col> 
-        </el-row> 
-    <!-- 第二行 -->
-        <el-row>   
-        <el-col :span="11">   
-            <el-form  :model="formInline">
-                <el-form-item label="奖品名称">
-                    <el-input v-model="formInline.now_award.name" placeholder="{{formInline.now_award.name}}" />
-                </el-form-item>
-            </el-form>
-        </el-col> 
-        <el-col :span="2"/> 
-        <el-col :span="11"> 
-            <el-form  :model="formInline">
-                <el-form-item label="剩余数量">
-                    <el-input v-model="formInline.now_award.num" placeholder="{{formInline.now_award.num}}" />
-                </el-form-item>
-            </el-form>    
-        </el-col> 
-        </el-row> 
-    <!-- 第三行 -->
-        <el-row>   
-        <el-col :span="11">   
-            <el-form  :model="formInline">
-                <el-form-item label="对应碳积分">
-                    <el-input v-model="formInline.now_award.credit" placeholder="{{formInline.now_award.credit}}" />
-                </el-form-item>
-            </el-form>
-        </el-col> 
-        <el-col :span="2"/> 
-        <el-col :span="11"> 
-            <el-form  :model="formInline">
-                <el-form-item label="商户编号">
-                    <el-input v-model="formInline.now_award.mid" placeholder="{{formInline.now_award.mid}}" 
-                    disabled v-if="formInline.now_award.mid"/>
-                    <el-input placeholder="系统提供" disabled v-else/>
-                </el-form-item>
-            </el-form>    
-        </el-col> 
-        </el-row>
-    <!-- 第四行 -->
-        <el-row>   
-        <el-col :span="11">   
-            <el-form  :model="formInline">
-                <el-form-item label="提供日期">
-                    <el-input v-model="formInline.now_award.fromdate" placeholder="{{formInline.now_award.fromdate}}" disabled/>
-                </el-form-item>
-            </el-form>
-        </el-col> 
-        <el-col :span="2"/> 
-        <el-col :span="11"> 
-            <el-form  :model="formInline">
-                <el-form-item label="截止日期">
-                    <!-- 日期选择器 不会 -->
-                    <!-- <div class="block">
-                        <el-date-picker
-                            v-model="formInline.now_award.todate"
-                            type="datetime"
-                            placeholder="{{formInline.now_award.todate}}"
-                        />
-                        </div> -->
-                    <el-input v-model="formInline.now_award.todate" placeholder="{{formInline.now_award.todate}}" disabled/>
-                </el-form-item>
-            </el-form>    
-        </el-col> 
-        </el-row>
-    <!-- 第五行 -->
-     <el-form  :model="formInline">
-        <el-form-item label="奖品内容">
-            <el-input v-model="formInline.now_award.content" placeholder="{{formInline.now_award.content}}" 
-            type="textarea" />
-        </el-form-item>
-    </el-form>
-
-        <!-- <template #footer class="dialog-foot">
-            <span class="dialog-footer">
-                <el-button type="primary" @click="dialogVisible = false" 
-                >确认</el-button
-                >
-            </span>
-        </template> -->
-        <div class="dialog-foot">
-        <el-button type="primary" @click="editDown" 
-                >确认</el-button
-                >
-        </div>
-    </el-dialog>
 </template>
 
 <script>
@@ -272,13 +149,15 @@ export default {
             }
         }
         //页码更换
+        //const totalPage=ref(tableData.length)
         const currentPage=ref(1)
         const pageSize=ref(5)
         const handleChange=()=>{
             console.log(currentPage.value)
-            console.log(tableData.arr[formInline.which_one])
+            console.log(tableData.value)
         }
         //数据更新
+        
         function sync(){
             getAllAwards({
              })
@@ -290,6 +169,7 @@ export default {
             })
             .catch((err) => console.log(err));
         }
+
         //数据同步
 
 
@@ -332,6 +212,8 @@ export default {
         dialogVisible,formInline,editDown,handleUpDown}
 
 
+
+        return{queryInfo,findGood,tableData,currentPage,pageSize,handleChange}
     },
 }
 </script>
