@@ -23,7 +23,7 @@ export function getAllAwards(params) {
 }
 
 export function login(params){
-    return http.post("/manager/login",params)
+    return http.post("/merchant/login",params)
 }
 
 export function getMerchant(){
