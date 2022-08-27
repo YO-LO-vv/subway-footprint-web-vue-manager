@@ -78,6 +78,7 @@ export default {
               console.log(tokenStr)
               ElMessage.success('welcome');
               router.push('/toDo');
+              if(localStorage.menuid) localStorage.removeItem('menuid')
             }else{
               ElMessage.error(res.data.message);
             }
