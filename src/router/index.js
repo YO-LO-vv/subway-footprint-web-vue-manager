@@ -29,10 +29,25 @@ const routes=[
                 name:'verifyMerc',
                 component:()=>import(/*webpackChunckName:'Index*/ '@/page/verifyMerc.vue'),
             },
-            {   //系统运维
-                path:'/systemTend',
-                name:'changeTend',
-                component:()=>import(/*webpackChunckName:'Index*/ '@/page/systemTend.vue'),
+            {   //参数修改
+                path:'/changePara',
+                name:'changePara',
+                component:()=>import(/*webpackChunckName:'Index*/ '@/page/changePara.vue'),
+            },
+            {   //地铁图更新
+                path:'/updateSub',
+                name:'updateSub',
+                component:()=>import(/*webpackChunckName:'Index*/ '@/page/updateSub.vue'),
+            },
+            {   //宝箱概率修改
+                path:'/changePro',
+                name:'changePro',
+                component:()=>import(/*webpackChunckName:'Index*/ '@/page/changePro.vue'),
+            },
+            {   //谈积分修改
+                path:'/changeCre',
+                name:'changeCre',
+                component:()=>import(/*webpackChunckName:'Index*/ '@/page/changeCre.vue'),
             },
         ]
 
