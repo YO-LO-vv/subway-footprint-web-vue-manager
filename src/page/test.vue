@@ -1,282 +1,149 @@
 <template>
-    <div class="ordering">
-      <div>
-        <el-row>
-          <el-col :span="16" />
-          <el-col :span="5">
-            <el-select
-              v-model="xxx.cityChoice"
-              placeholder="请选择城市"
-              @change="handleChange"
-            >
-              <el-option
-                v-for="item in xxx.cityList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </el-col>
-          <el-col :span="3">
-            <el-button @click="test">test</el-button>
-          </el-col>
-        </el-row>
-      </div>
-      <svg id="mobile-svg" xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <g id="g-box" font-size="10"></g>
-      </svg>
+    <div id="home" class="ordering">
+      <section id="top-section">
+        <label for="">svg路径：</label>
+        <el-input v-model="svgPath" size="small"></el-input>
+        <el-button type="primary" size="small" @click='loadSvgData()'>加载</el-button>
+      </section>
+      <article>
+        <!-- svg图形显示容器 -->
+        <section id="svg-container">
+        </section>
+        <!-- svg元件鼠标悬浮提示框 -->
+        <div id="svgTipBox" v-show="svgTipBoxVisible && !svgControlBoxVisible"
+        v-bind:style="{ left: svgTipBoxPositionX + 'px', top: svgTipBoxPositionY + 'px' }">
+          {{svgTipBoxData}}
+        </div>
+      </article>
     </div>
   </template>
-  
+   
   <script>
-  import $ from "jquery";
-  
-  
-  import { getAllSubways } from "../../api/api";
-  import { onMounted, reactive, ref } from "vue";
-  import { svgPanZoom } from "svg-pan-zoom";
-  
-  import _ from "lodash"; //导入loadsh插件
-  
-  import {svg} from "../lib/limitTextNum.js";
-  import "../lib/jquery.js";
-  import "../lib/svg-pan-zoom.js";
-  import "../lib/hammer.min.js";
-  
+  import axios from 'axios'
+   
   export default {
-    setup() {
-      //挂载
-      onMounted(() => {
-        console.log("mounted");
-        //getSub(131);
-      });
-      //城市选择
-      const xxx = reactive({
-        subInfo: {},
-        cityChoice: null,
-        cityList: [
-          {
-            value: 131,
-            label: "北京",
-          },
-          {
-            value: 289,
-            label: "上海",
-          },
-        ],
-      });
-      const handleChange = () => {
-        console.log(xxx.cityChoice);
-        getSub(xxx.cityChoice);
-      };
-      //获取地铁数据
-      function getSub(cityCode) {
-        getAllSubways({
-          code: cityCode,
-        })
-          .then((res) => {
-            console.log(res);
-            xxx.subInfo = _.cloneDeep(res.data);
-            console.log(xxx.subInfo);
-            draw();
-          })
-          .catch((err) => console.log(err));
+    name: 'Home',
+    data () {
+      return {
+        // svgPath: String.raw`E:\subway-footprint-web-vue\public\assets\test2.svg`, //svg文件路径
+        svgPath: "", //svg文件路径
+        svgData:'',  //svg文件内容
+        svgTipBoxData:'',  //svg元件鼠标悬浮提示框内容
+        svgTipBoxVisible:false, //svg元件鼠标悬浮提示框显示状态
+        svgTipBoxPositionX:0,  //svg元件鼠标悬浮提示框x坐标
+        svgTipBoxPositionY:0,  //svg元件鼠标悬浮提示框y坐标
       }
-      const imgSrc = null;
-      //绘制地铁图
-      function draw() {
-        var l = xxx.subInfo.l;
-        //地铁线路
-        for (var i = 0; i < l.length; i++) {
-          //console.log(i);
-          var { l_xmlattr, p } = l[i];
-          var { lb, loop, uid } = l_xmlattr;
-          // if (!uid) { //暂未开通
-          //     break;
-          // }
-          var dStr = ""; //地铁线路点
-          var isLb = false; //是否圆润拐点
-          for (var j = 0; j < p.length; j++) {
-            var { x, y, lb, st, ex, rc } = p[j].p_xmlattr;
-            if (isLb) {
-              isLb = false;
-              dStr += x + " " + y + " ";
-            } else {
-              if (rc) {
-                isLb = true;
-                dStr += "Q" + x + " " + y + " ";
-              } else {
-                if (j == 0) {
-                  dStr += "M" + x + " " + y + " ";
-                } else {
-                  dStr += "L" + x + " " + y + " ";
-                }
-                if (j == p.length - 1) {
-                  if (loop) {
-                    dStr += "Z";
-                  }
-                }
-              }
-            }
-          }
-  
-          var { lb, lc, lbx, lby } = l_xmlattr[0];
-          //console.log("lc-------------" + lc);
-          var path = $.svg("path").appendTo("#g-box");
-          //var path = $.load("path").appendTo("#g-box");
-          if (lc) {
-            var lc_ = lc.split("x")[1];
-          }
-          path
-            .attr({
-              d: $.trim(dStr),
-              lb: lb,
-            })
-            .css("stroke", "#" + lc_);
-          var text = $.svg("text")
-            //var text = $.load("text")
-            .appendTo("#g-box")
-            .html(lb)
-            .addSvgClass("subway-name");
-          if (lc) {
-            var lc_ = lc.split("x")[1];
-          }
-          text
-            .attr({
-              x: lbx - 10,
-              y: lby + 15,
-            })
-            .css("fill", "#" + lc_);
-        }
-  
-        var repeatStr = ""; //uid字符串判断重复点
-        for (var i = 0; i < l.length; i++) {
-          var { l_xmlattr, p } = l[i];
-          // if (!l_xmlattr.uid) { //暂未开通
-          //     break;
-          // }
-          for (var j = 0; j < p.length; j++) {
-            var { x, y, rx, ry, lb, ex, rc, st, uid } = p[j].p_xmlattr;
-            if (st) {
-              if (ex) {
-                if (!repeatStr.includes(uid)) {
-                  var image = $.svg("image").appendTo("#g-box");
-                  // var image = $.load("image").appendTo("#g-box");
-                  image.attr({
-                    width: "20",
-                    height: "20",
-                    x: x - 10,
-                    y: y - 10,
-                  });
-                  if (image.length) image[0].href.baseVal = imgSrc;
-                }
-              } else {
-                var circle = $.svg("circle").appendTo("#g-box");
-                // var circle = $.load("circle").appendTo("#g-box");
-                if (lc) {
-                  var lc_ = l_xmlattr[0].lc.split("x")[1];
-                }
-                circle
-                  .attr({
-                    cx: x,
-                    cy: y,
-                    r: 4,
-                  })
-                  .css("stroke", "#" + lc_);
-              }
-              if (!repeatStr.includes(uid)) {
-                var text = $.svg("text")
-                  // var text = $.load("text")
-                  .appendTo("#g-box")
-                  .html(lb)
-                  .addSvgClass("station-name");
-                text.attr({
-                  x: x + rx + 2,
-                  y: y + ry + 12,
-                });
-                repeatStr += uid;
-              }
-            }
-          }
-        }
-  
-        // var eventsHandler = {
-        //   haltEventListeners: [
-        //     "touchstart",
-        //     "touchend",
-        //     "touchmove",
-        //     "touchleave",
-        //     "touchcancel",
-        //   ],
-        //   init: function (options) {
-        //     var instance = options.instance,
-        //       initialScale = 1,
-        //       pannedX = 0,
-        //       pannedY = 0;
-        //     this.hammer = Hammer(options.svgElement, {
-        //       inputClass: Hammer.SUPPORT_POINTER_EVENTS
-        //         ? Hammer.PointerEventInput
-        //         : Hammer.TouchInput,
-        //     });
-        //     this.hammer.get("pinch").set({
-        //       enable: true,
-        //     });
-        //     this.hammer.on("doubletap", function (ev) {
-        //       instance.zoomIn();
-        //     });
-        //     this.hammer.on("panstart panmove", function (ev) {
-        //       if (ev.type === "panstart") {
-        //         pannedX = 0;
-        //         pannedY = 0;
-        //       }
-        //       instance.panBy({
-        //         x: ev.deltaX - pannedX,
-        //         y: ev.deltaY - pannedY,
-        //       });
-        //       pannedX = ev.deltaX;
-        //       pannedY = ev.deltaY;
-        //     });
-        //     this.hammer.on("pinchstart pinchmove", function (ev) {
-        //       if (ev.type === "pinchstart") {
-        //         initialScale = instance.getZoom();
-        //         instance.zoomAtPoint(initialScale * ev.scale, {
-        //           x: ev.center.x,
-        //           y: ev.center.y,
-        //         });
-        //       }
-        //       instance.zoomAtPoint(initialScale * ev.scale, {
-        //         x: ev.center.x,
-        //         y: ev.center.y,
-        //       });
-        //     });
-        //     options.svgElement.addEventListener("touchmove", function (e) {
-        //       e.preventDefault();
-        //     });
-        //   },
-        //   destroy: function () {
-        //     this.hammer.destroy();
-        //   },
-        // };
-  
-        window.panZoom = svgPanZoom("#mobile-svg", {
-          zoomEnabled: true,
-          controlIconsEnabled: false,
-          fit: 1,
-          center: 1,
-          // customEventsHandler: eventsHandler,
-        });
-  
-        alert("接口调用成功！");
-      }
-      const test = () => {
-        console.log(xxx.cityChoice);
-      };
-      return { xxx, test, handleChange };
     },
-  };
+    // 由于svg上添加的鼠标事件无法直接调用vue里的methods方法，需要将这些方法绑定到window下面，提供给外部调用
+    async mounted() {
+      // 将svgClick方法绑定到window下面，提供给外部调用
+      window["handleClick"] = (evt, id) => {
+        this.svgClick(evt, id);
+      };
+      // 将svgMouseOver方法绑定到window下面，提供给外部调用
+      window["handleMouseOver"] = (evt, id) => {
+        this.svgMouseOver(evt, id);
+      };
+      // 将svgMouseMove方法绑定到window下面，提供给外部调用ping 20.
+      window["handleMouseMove"] = (evt, id) => {
+        this.svgMouseMove(evt, id);
+      };
+      // 将svgMouseOut方法绑定到window下面，提供给外部调用
+      window["handleMouseOut"] = (evt, id) => {
+        this.svgMouseOut(evt, id);
+      };
+    },
+    created() {
+    },
+    methods:{
+      //加载按钮点击
+      loadSvgData() {
+        console.log("da")
+        // ajax请求数据，并携带参数
+        axios.get(this.svgPath)
+         .then(response => {
+           console.log(response.data)
+           // 将svg平面图显示在制定容器中
+           var svgContainer = document.getElementById('svg-container');
+           svgContainer.innerHTML = response.data;
+           // 遍历svg里面的元素，自动添加鼠标事件
+           this.addMouseEvent(svgContainer);
+         }, err => {
+             console.log(err)
+         })
+         .catch((error) => {
+             console.log(error)
+         })
+      },
+      // 遍历svg里面的元素，自动添加鼠标事件
+      addMouseEvent(parent) {
+        for (var i = 0; i < parent.childNodes.length; i++) {   //循坏svg里面的元素
+          var child = parent.childNodes[i];
+          // 判断是不是g元素，并且具有id值，是的话，就添加鼠标事件
+          if (child.tagName == 'g' && child.id != null && child.id.length > 0
+           && child.id.indexOf("PD_")==0) {
+            console.log(child.tagName + "：" + child.id);
+            child.setAttribute("onclick", "handleClick(evt,'"+child.id+"')");
+            child.setAttribute("onmouseover", "handleMouseOver(evt,'"+child.id+"')");
+            child.setAttribute("onmousemove", "handleMouseMove(evt,'"+child.id+"')");
+            child.setAttribute("onmouseout", "handleMouseOut(evt,'"+child.id+"')");
+          }
+          //继续递归遍历子元素
+          this.addMouseEvent(child);
+        }
+      },
+      // svg图元件点击事件
+     svgClick(evt, id) {
+        console.log(evt);
+        alert(id);
+     },
+     // svg图元件鼠标移入事件
+     svgMouseOver(evt, id) {
+       console.log("svgMouseOver");
+       console.log(evt);
+       this.svgTipBoxData = id;
+       this.svgTipBoxVisible = true;
+     },
+     // svg图元件鼠标移动事件
+     svgMouseMove(evt, id) {
+       console.log("svgMouseMove");
+       console.log(evt);
+       this.svgTipBoxPositionX = evt.pageX;
+       this.svgTipBoxPositionY = evt.pageY - 50;
+     },
+     // svg图元件鼠标移出事件
+     svgMouseOut(evt, id) {
+       console.log("svgMouseOut");
+       console.log(evt);
+       this.svgTipBoxVisible = false;
+     },
+    }
+  }
   </script>
-  
-  <style>
-  
+   
+  <style scoped>
+    #home {
+      padding: 22px 34px 22px 34px;
+    }
+    #top-section {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    #top-section label {
+      font-size: 14px;
+      line-height: 32px;
+    }
+    #top-section .el-input {
+      margin-right: 20px;
+      width: 200px;
+    }
+    #svgTipBox {
+      position: absolute;
+      padding: 10px;
+      background: rgba(0, 0, 0, .8);
+      color: #ffffff;
+    }
+    #svgControlBox {
+      position: absolute;
+    }
   </style>
-  

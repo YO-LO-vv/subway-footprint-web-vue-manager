@@ -1,6 +1,5 @@
 // svg-pan-zoom v3.5.2
 // https://github.com/ariutta/svg-pan-zoom
-
 (function e(t, n, r) {
     function s(o, u) {
         if (!n[o]) {

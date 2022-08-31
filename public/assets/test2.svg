@@ -1,0 +1,115 @@
+<svg width="550" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+ <defs>
+  <style type="text/css">
+   <![CDATA[symbol{overflow:visible}
+				.lkv1000 {fill:none;stroke:rgb(0,0,255)}
+				.kv1000 {fill:rgb(0,0,255);stroke:rgb(0,0,255);stroke-width:1}
+				.lkv750 {fill:none;stroke:rgb(250,128,10)}
+				.kv750 {fill:rgb(250,128,10);stroke:rgb(250,128,10);stroke-width:1}
+				.lkv500 {fill:none;stroke:rgb(255,0,0)}
+				.kv500 {fill:rgb(255,0,0);stroke:rgb(255,0,0);stroke-width:1}
+				.lkv330 {fill:none;stroke:rgb(30,144,255)}
+				.kv330 {fill:rgb(30,144,255);stroke:rgb(30,144,255);stroke-width:1}
+				.lkv220 {fill:none;stroke:rgb(128,0,128)}
+				.kv220 {fill:rgb(128,0,128);stroke:rgb(128,0,128);stroke-width:1}
+				.lkv110 {fill:none;stroke:rgb(240,65,85)}
+				.kv110 {fill:rgb(240,65,85);stroke:rgb(240,65,85);stroke-width:1}
+				.lkv66 {fill:none;stroke:rgb(255,204,0)}
+				.kv66 {fill:rgb(255,204,0);stroke:rgb(255,204,0);stroke-width:1}
+				.lkv35 {fill:none;stroke:rgb(255,255,0)}
+				.kv35 {fill:rgb(255,255,0);stroke:rgb(255,255,0);stroke-width:1}
+				.lkv20 {fill:none;stroke:rgb(226,172,6)}
+				.kv20 {fill:rgb(226,172,6);stroke:rgb(226,172,6);stroke-width:1}
+				.lkv15.75 {fill:none;stroke:rgb(0,128,0)}
+				.kv15.75 {fill:rgb(0,128,0);stroke:rgb(0,128,0);stroke-width:1}
+				.lkv13.8 {fill:none;stroke:rgb(0,210,0)}
+				.kv13.8 {fill:rgb(0,210,0);stroke:rgb(0,210,0);stroke-width:1}
+				.lkv10 {fill:none;stroke:rgb(185,72,66)}
+				.kv10 {fill:rgb(185,72,66);stroke:rgb(185,72,66);stroke-width:1}
+				.lkv6 {fill:none;stroke:rgb(0,0,139)}
+				.kv6 {fill:rgb(0,0,139);stroke:rgb(0,0,139);stroke-width:1}
+				.lkv3 {fill:none;stroke:rgb(0,100,0)}
+				.kv3 {fill:rgb(0,100,0);stroke:rgb(0,100,0);stroke-width:1}
+				.lv380 {fill:none;stroke:rgb(0,204,255)}
+				.v380 {fill:rgb(0,204,255);stroke:rgb(0,204,255);stroke-width:1}
+				.lv220 {fill:none;stroke:rgb(176,164,227)}
+				.v220 {fill:rgb(176,164,227);stroke:rgb(176,164,227);stroke-width:1}
+				.lv110 {fill:none;stroke:rgb(192,192,192)}
+				.v110 {fill:rgb(192,192,192);stroke:rgb(192,192,192);stroke-width:1}
+				.lvdc {fill:none;stroke:rgb(98,49,49)}
+				.vdc {fill:rgb(98,49,49);stroke:rgb(98,49,49);stroke-width:1}
+]]>
+  </style>
+  <symbol id="Other_PMS25_0_0" viewBox="0 0 12.000000 11.938000">
+   <line x1="4.5" y1="-5.25" x2="3.75" y2="-5.25" fill="none" stroke="rgb(11,179,174)" stroke-width="0.1" id="svg_7"/>
+   <rect x="-6" y="-5.25" width="12" height="11.188" fill="rgb(138,219,253)" stroke="rgb(138,219,253)" id="svg_8"/>
+   <rect x="4" y="-6" width="1" height="0.75" fill="rgb(138,219,253)" stroke="rgb(138,219,253)" id="svg_9"/>
+   <rect x="-3.25" y="-6" width="6.5" height="0.75" fill="rgb(138,219,253)" stroke="rgb(138,219,253)" id="svg_10"/>
+   <rect x="-5" y="-6" width="1" height="0.75" fill="rgb(138,219,253)" stroke="rgb(138,219,253)" id="svg_11"/>
+  </symbol>
+  <symbol id="Sensor_PMS25_0_0" viewBox="0 0 12.400000 12.400000">
+   <circle cx="0" cy="0" r="6" fill="rgb(0,0,128)" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_12"/>
+   <circle cx="0" cy="0" r="4.875" fill="rgb(255,255,255)" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_13"/>
+   <rect x="-3.5" y="-2" width="7" height="4.5" fill="none" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_14"/>
+   <line x1="-2.75" y1="-2.75" x2="-0.75" y2="-2.75" fill="none" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_15"/>
+   <line x1="0.75" y1="-2.75" x2="2.75" y2="-2.75" fill="none" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_16"/>
+   <line x1="-2.5" y1="0.25" x2="-1" y2="0.25" fill="none" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_17"/>
+   <line x1="1" y1="0.25" x2="2.5" y2="0.25" fill="none" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_18"/>
+   <line x1="1.75" y1="-0.5" x2="1.75" y2="1" fill="none" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_19"/>
+  </symbol>
+  <symbol id="Sensor_PMS25_211_2110" viewBox="0 0 12.400000 12.400000">
+   <circle cx="0" cy="0" r="6" fill="rgb(0,0,128)" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_20"/>
+   <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" stroke="rgb(0,0,128)" stroke-width="0.4" id="svg_21"/>
+   <rect x="-2.5" y="-2" width="5" height="3.5" fill="rgb(0,0,128)" stroke="rgb(0,0,128)" id="svg_22"/>
+   <circle cx="0" cy="-3" r="0.5" fill="rgb(0,0,128)" stroke="rgb(0,0,128)" id="svg_23"/>
+   <line x1="0" y1="-2" x2="0" y2="-2.5" fill="none" stroke="rgb(0,0,128)" stroke-width="0.2" id="svg_24"/>
+   <circle cx="-1" cy="-0.5" r="0.5" fill="rgb(255,255,255)" stroke="rgb(0,204,255)" stroke-width="0.05" id="svg_25"/>
+   <circle cx="1" cy="-0.5" r="0.5" fill="rgb(255,255,255)" stroke="rgb(0,204,255)" stroke-width="0.05" id="svg_26"/>
+   <rect x="-1" y="1.5" width="2" height="0.25" fill="rgb(0,0,128)" stroke="rgb(0,0,128)" id="svg_27"/>
+   <rect x="-1.75" y="1.75" width="3.5" height="1.25" fill="rgb(0,0,128)" stroke="rgb(0,0,128)" id="svg_28"/>
+  </symbol>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="Other_Layer">
+   <g id="PD_0302_4e97f511-ccc9-4aad-adb3-2d121c712971">
+    <use x="505.928423" y="405.459429" width="12" height="11.9375" xlink:href="#Other_PMS25_0_0" 
+      transform="matrix(5.7540640830993635,0,0,5.7540640830993635,-2828.310858687968,-2242.3475525183167) "
+       class="lkv10" id="svg_34"/>
+    <metadata transform="translate(-127,-172) translate(0,24) translate(-6,-48) "/>
+   </g>
+   <g id="PD_0302_1721693f-4d9e-4ce3-a9a9-3daa1c1ff653">
+    <use x="586.485323" y="405.459429" width="12" height="11.9375" xlink:href="#Other_PMS25_0_0" 
+      transform="matrix(5.7540640830993635,0,0,5.7540640830993635,-3211.2837413636444,-2242.3475525183167) "
+       class="lkv10" id="svg_35"/>
+    <metadata transform="translate(-127,-172) translate(0,24) translate(-6,-48) "/>
+   </g>
+   <g id="PD_0302_7227f068-9002-40f6-9104-24a1480ac2c6">
+    <use x="667.042223" y="405.459429" width="12" height="11.9375" xlink:href="#Other_PMS25_0_0" 
+      transform="matrix(5.7540640830993635,0,0,5.7540640830993635,-3594.256333874276,-2242.3475525183167) "
+       class="lkv10" id="svg_36"/>
+    <metadata transform="translate(-127,-172) translate(0,24) translate(-6,-48) "/>
+   </g>
+  </g>
+  <g id="Sensor_Layer">
+   <g id="PD_0903003_1ce58c23-6f07-4187-86d3-2679fd279b57">
+    <use x="389.328792" y="282.903918" width="12.4" height="12.4" xlink:href="#Sensor_PMS25_0_0"
+       transform="matrix(2.0139224529266357,0,0,2.0139224529266357,-706.1955184044637,-485.4792508401297) "
+        class="v0" id="svg_38"/>
+    <metadata transform="translate(-127,-172) translate(9,-4) translate(-3,8) translate(0,24) translate(-6,-48) "/>
+   </g>
+   <g id="PD_0903003_0ccce317-9557-421e-8e92-7feeeec4f648">
+    <use x="469.153752" y="284.289578" width="12.4" height="12.4" xlink:href="#Sensor_PMS25_0_0" 
+      transform="matrix(2.0139224529266357,0,0,2.0139224529266357,-787.1318287014001,-486.8841931306306) "
+       class="v0" id="svg_39"/>
+    <metadata transform="translate(-127,-172) translate(9,-4) translate(-3,8) translate(0,24) translate(-6,-48) "/>
+   </g>
+   <g id="PD_0903005_d046c637-9c90-423c-8827-3b59fde21b1f">
+    <use x="496.598656" y="180.179489" width="12.4" height="12.4" xlink:href="#Sensor_PMS25_211_2110"
+       transform="matrix(2.0139224529266357,0,0,2.0139224529266357,-754.5440367873816,-276.1022221085732) "
+        class="v0" id="svg_40"/>
+    <metadata transform="translate(-127,-172) translate(120,209) translate(9,-4) translate(-3,8) translate(0,24) translate(-6,-48) "/>
+   </g>
+  </g>
+ </g>
+</svg>

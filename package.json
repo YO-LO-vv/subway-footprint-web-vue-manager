@@ -17,6 +17,7 @@
     "qrcodejs2": "^0.0.2",
     "qs": "^6.11.0",
     "svg-pan-zoom": "^3.6.1",
+    "svg-sprite-loader": "^6.0.11",
     "vue": "^3.0.0",
     "vue-amap": "^0.5.10",
     "vue-qr": "^4.0.9",
