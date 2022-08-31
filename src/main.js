@@ -13,11 +13,22 @@ import qs from 'qs'
 //全局css
 import '../style/headtap.css'
 
+//jq
+import jquery from "jquery";
+
+// import $ from "jquery";
+// import "./lib/svg-pan-zoom.js";
+// import "./lib/hammer.min.js";
+// import "./lib/jquery.js";
+// import "./lib/limitTextNum.js";
+// import svgPanZoom from "svg-pan-zoom";
+
+
 const app = createApp(App)
 app.use(ElementPlus, {
     locale: zhCn,
   })
-app.use(router)
+app.use(router,jquery)
 app.config.globalProperties.$axios=axios
 app.config.globalProperties.$qs=qs
 app.mount('#app')

@@ -2,14 +2,11 @@ import axios from 'axios';
 // 创建一个自定义的Axios对象
 const Axios = axios.create({
     baseURL: 'https://thelittlestar.cn:8088',
-    timeout: 3000,
-    /*也可以不设置Content-Type，影响是在你发送请求时
-    Vue会先发送OPTIONS包探测路由是否存在，需要后端也做设置响应OPTIONS
-    方法，否则会报跨域错误；我这里用的Beego2，路由里不响应OPTIONS方法，
-    所以我在这块设置Content-Type*/
+    timeout: 30000,
+    
     headers: { 
         'Content-Type': 'application/json',
-        //token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
+        'Access-Control-Allow-Origin':'*'
     },
 });
 
@@ -19,7 +16,8 @@ Axios.interceptors.request.use(req => {
     if (localStorage.token) { //判断token是否存在
         console.log('加入token')
         var token = JSON.parse(localStorage.getItem('token'))
-        req.headers.token = token;  //将token设置成请求头
+        // req.headers.token = token;  //将token设置成请求头
+        req.headers['token']=token
     }
     return req; 
 }, err => {

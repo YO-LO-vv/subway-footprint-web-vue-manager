@@ -14,7 +14,7 @@
             @select="handleSelect"
           >
             <!-- 一级菜单 -->
-            <div v-for="(item, index) in menu" :key="index">
+            <div v-for="(item, index) in menu" :key="index+'c'">
               <router-link :to="{ path: item.router }" v-if="!item.Subclass">
                 <el-menu-item :index="item.id">
                   <el-icon>
@@ -34,12 +34,10 @@
                   </el-icon>
                   <span>{{ item.title }}</span>
                 </template>
-                <div v-for="item_ in item.Subclass" :key="item_.id">
-                  <router-link
-                    :to="{ path: item_.router }"
-                  >
-                    <el-menu-item :index="item_.id">
-                      <span>{{ item_.title }}</span>
+                <div v-for="(i,index_) in item.Subclass" :key="index_+'a'">
+                  <router-link :to="{ path: i.router }">
+                    <el-menu-item :index="i.id">
+                      <span>{{ i.title }}</span>
                     </el-menu-item>
                   </router-link>
                 </div>
@@ -105,34 +103,34 @@ export default {
         //Subclass: [],
       },
       {
-        id: "3",
+        id: "2",
         icon: Search,
         title: "商户认证",
         router: "verifyMerc",
         //Subclass: [],
       },
       {
-        id: "2",
+        id: "3",
         icon: Cpu,
         title: "参数管理",
         router: "changePara",
         Subclass: [
           {
-            id: "5",
+            id: "2-1",
 
             title: "地铁图更新",
             router: "updateSub",
             Subclass: [],
           },
           {
-            id: "6",
+            id: "2-2",
 
             title: "修改宝箱概率",
             router: "changePro",
             Subclass: [],
           },
           {
-            id: "7",
+            id: "2-3",
 
             title: "修改碳积分",
             router: "changeCre",
@@ -141,17 +139,17 @@ export default {
         ],
       },
       {
-        id: "11",
+        id: "4",
         icon: Search,
         title: "商户认证",
         router: "verifyMerc",
         //Subclass: [],
       },
       {
-        id: "4",
-        
-        title: "敬请期待",
-        router: "",
+        id: "5",
+
+        title: "测试",
+        router: "test",
         //Subclass: [],
       },
     ];
