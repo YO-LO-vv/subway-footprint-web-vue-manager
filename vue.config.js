@@ -1,6 +1,7 @@
 
 module.exports = {
     assetsDir: 'static',
+    publicPath:"./",
     devServer: {
       proxy: {
         '/api': {  //之后就使用/api代指根路径
