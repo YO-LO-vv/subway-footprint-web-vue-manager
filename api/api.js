@@ -22,7 +22,9 @@ export function getAllAwards(params) {
     return http.post("/award/getAllAwards",params)
 }
 
-
+export function getAllMerchants(params) {
+    return http.post("/manager/getAllMerchants",params)
+}
 export function getMerchantAwards(params) {
     return http.post_q("/award/getMerchantAwards", params)
 }
@@ -39,10 +41,16 @@ export function updateAward(params) {
     return http.post("/award/updateAward", params)
 }
 
+export function checkAuthentication(params) {
+    return http.post_q("/manager/checkAuthentication", params)
+}
+
 export function login(params){
     return http.post("/manager/login",params)
 }
-
+export function getAllUnAuthenticatedMerchants(params){
+    return http.post("/manager/getAllUnAuthenticatedMerchants",params)
+}
 export function getMerchant(){
     return http.post("/merchant/getMerchant")
 }
