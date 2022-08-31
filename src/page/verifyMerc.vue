@@ -283,13 +283,18 @@ export default {
     const handleVerify = (index) => {
       formInline.which_one = index + pageSize.value * (currentPage.value - 1);
       formInline.now_merchant = _.cloneDeep(tableData.arr[formInline.which_one]);
-      if(formInline.now_merchant.authenticated!=1&&formInline.now_merchant.authenticated!=-2) {
+      if(formInline.now_merchant.authenticated==0) {
         dialogVisible.value = true;
         console.log("开始编辑");
         console.log(formInline.which_one);
         console.log(formInline.now_merchant);
       }else{
-        ElMessage.error("该商户已认证，操作无效")
+        switch(formInline.now_merchant.authenticated){
+          case -2:ElMessage.error("该商户认证失败，请等待再次提交");break;
+          case -1:ElMessage.error("该商户未提交认证，请等待提交");break;
+          case 1:ElMessage.error("该商户已认证成功，操作无效");break;
+          case 2:ElMessage.error("该商户认证过期，请等待其最新提交信息");break;
+        }
       }
     };
     const editSuccess = () => {
