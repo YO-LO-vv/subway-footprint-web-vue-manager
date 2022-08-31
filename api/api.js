@@ -54,7 +54,9 @@ export function getAllUnAuthenticatedMerchants(params){
 export function getMerchant(){
     return http.post("/merchant/getMerchant")
 }
-
+export function getMerchant1(){
+    return http.post("/merchant/getMerchant")
+}
 export function getCode(params){
     return http.post("/merchant/sendRegistEmail",params)
 }
