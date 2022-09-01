@@ -12,7 +12,7 @@ const routes = [{ //登陆界面
 	{ //登陆界面
 		path: '/QRcode',
 		name: 'QRcode',
-		component: () => import('@/page/QRcode.vue')
+		component: () => import('@/page/qrCOde.vue')
 	},
 
 	{ //主界面
