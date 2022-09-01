@@ -797,45 +797,46 @@ $.ajax({
 			var b = imageSet[i].nextSibling;
 			var c = b.textContent;
 			(function(i, c, a) { //这个是function里i，即function的形参，也可以换成j，换成什么变量名都无所谓
+				imageSet[i].removeEventListener('click',click_a)
 				imageSet[i].addEventListener('click',
-					function() {
-						console.log(c)
-						console.log(a)
-						var x_ = a.getAttribute("x");
-						var y_ = a.getAttribute("y");
-						console.log(x_)
-						console.log(y_)
-						//添加箭头
-						$('.ltdz').remove()
-						// var currentLocation= $('.ltdz')
-						// console.log(currentLocation)
-						var image = $.svg('image').appendTo('#g-box')
-						y_ = parseFloat(y_)
-						y_ -= 5.0
-						console.log("-------------------")
-						console.log(y_)
-						image.attr({
-							width: "20",
-							height: "20",
-							x: x_,
-							y: y_,
-							class: "ltdz",
-							href: locationSrc
-						});
-
-						// image[0].href.baseVal = locationSrc;
-						//发送数据
-
-						let data = {
-							type: 1,
-							code: 200,
-							data: $("select").val()+'_'+c
-						}
-						window.parent.postMessage(data, '*');
-
-					},
-
+					click_a
 				);
+				function click_a() {
+					console.log(c)
+					console.log(a)
+					var x_ = a.getAttribute("x");
+					var y_ = a.getAttribute("y");
+					console.log(x_)
+					console.log(y_)
+					//添加箭头
+					$('.ltdz').remove()
+					// var currentLocation= $('.ltdz')
+					// console.log(currentLocation)
+					var image = $.svg('image').appendTo('#g-box')
+					y_ = parseFloat(y_)
+					y_ -= 5.0
+					console.log("-------------------")
+					console.log(y_)
+					image.attr({
+						width: "20",
+						height: "20",
+						x: x_,
+						y: y_,
+						class: "ltdz",
+						href: locationSrc
+					});
+				
+					// image[0].href.baseVal = locationSrc;
+					//发送数据
+				
+					let data = {
+						type: 1,
+						code: 200,
+						data: $("select").val()+'_'+c
+					}
+					window.parent.postMessage(data, '*');
+				
+				}
 			})(i, c, a);
 		}
 		//circle添加点击

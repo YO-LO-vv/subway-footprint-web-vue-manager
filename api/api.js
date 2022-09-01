@@ -62,3 +62,11 @@ export function regist(params) {
 export function changePassword(params) {
   return http.post("/merchant/changePassword", params);
 }
+
+export function changePositionTreasureProbability(params) {
+  return http.post_q("/treasure/changePositionTreasureProbability", params);
+}
+
+export function getPositionTreasureProbability(params) {
+  return http.post_q("/treasure/getPositionTreasureProbability", params);
+}

@@ -29,6 +29,7 @@
 	export default {
 		setup() {
 			//挂载
+			
 			onMounted(() => {
 				console.log("mounted");
 				//getSub(131);
@@ -36,7 +37,7 @@
 				window.addEventListener('message', function(event) {
 					//此处执行事件
 					console.log('监听到子页面的传参')
-					console.log(event.data)
+					console.log(event.data.data)
 				})
 			});
 			//城市选择
