@@ -1,25 +1,16 @@
 <template>
-    <div class="ordering">
-        <el-button @click="fas">test</el-button>
-    </div>
+  123
 </template>
 
 <script>
-
-
-
-export default{
-    setup(){
-        const fas = ()=>{
-            var key = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtYW5hZ2VySUQiOiJDbGF5IiwiZXhwIjoxNjYyMDIwMzMzLCJhY2NvdW50IjoiQ2xheSJ9.WLQHOMV-_-hC7jSar7k-LvmyjrLYz-DRAQzEicNYjNI'
-            localStorage.setItem('token',JSON.stringify(key))//缓存本地
-        }
-        
-        return {fas}
+import { markRaw, ref, reactive, onMounted } from "vue";
+export default {
+  setup() {
+    const source=ref("")
+    const fas=()=>{
+      source.value="";
     }
+    return {source,fas}
+  },
 }
 </script>
-
-<style>
-
-</style>
