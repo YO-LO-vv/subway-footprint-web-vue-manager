@@ -787,6 +787,8 @@ $.ajax({
 		});
 	},
 	complete: function() { //调用后触发（不管成功或失败）
+		//向父页面发送信息
+
 
 		//image添加点击
 		var imageSet = $("image");
@@ -808,20 +810,28 @@ $.ajax({
 						// var currentLocation= $('.ltdz')
 						// console.log(currentLocation)
 						var image = $.svg('image').appendTo('#g-box')
-						y_=parseFloat(y_)
-						y_-=5.0
+						y_ = parseFloat(y_)
+						y_ -= 5.0
 						console.log("-------------------")
 						console.log(y_)
 						image.attr({
 							width: "20",
 							height: "20",
 							x: x_,
-							y: y_,   
+							y: y_,
 							class: "ltdz",
 							href: locationSrc
 						});
 
 						// image[0].href.baseVal = locationSrc;
+						//发送数据
+
+						let data = {
+							type: 1,
+							code: 200,
+							data: $("select").val()+'_'+c
+						}
+						window.parent.postMessage(data, '*');
 
 					},
 
@@ -834,7 +844,7 @@ $.ajax({
 			var a = imageSet[i];
 			var b = imageSet[i].nextSibling;
 			var c = b.textContent;
-			(function(i, c,a) { //这个是function里i，即function的形参，也可以换成j，换成什么变量名都无所谓
+			(function(i, c, a) { //这个是function里i，即function的形参，也可以换成j，换成什么变量名都无所谓
 				imageSet[i].addEventListener('click',
 					function() {
 						console.log(c);
@@ -853,20 +863,27 @@ $.ajax({
 						$('.ltdz').remove()
 						// var currentLocation= $('.ltdz')
 						// console.log(currentLocation)
-						x_=parseFloat(x_)
-						y_=parseFloat(y_)
+						x_ = parseFloat(x_)
+						y_ = parseFloat(y_)
 						var image = $.svg('image').appendTo('#g-box')
 						image.attr({
 							width: "20",
 							height: "20",
-							x: x_-10.0,
-							y: y_-13.0,
+							x: x_ - 10.0,
+							y: y_ - 13.0,
 							class: "ltdz",
 							href: locationSrc
 						});
+						//发送数据
+						let data = {
+							type: 1,
+							code: 200,
+							data: $("select").val()+'_'+c
+						}
+						window.parent.postMessage(data, '*');
 					},
 				);
-			})(i, c,a);
+			})(i, c, a);
 
 		}
 
