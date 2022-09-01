@@ -5,17 +5,52 @@
 				<p class="lt-title">地铁足迹系统管理员端</p>
 				<div>
 					<el-menu :default-active="activeIndex" class="top-menu" mode="horizontal" background-color="#545c64"
-						text-color="#fff" active-text-color="#ffd04b" @select="handleSelect">
+						text-color="#fff" active-text-color="#ffd04b" @select="handleSelect" >
 						<!-- 一级菜单 -->
-						<div v-for="(item, index) in menu" :key="index+'c'">
 							<!-- <router-link :to="{ path: item.router }" v-if="!item.Subclass"> -->
-							<router-link :to="{ path: item.router }">
-								<el-menu-item :index="item.id">
+							<router-link :to="{ path: menu[0].router }">
+								<el-menu-item :index="menu[0].id">
 									<el-icon>
 										<!-- 展示组件 -->
-										<component :is="item.icon" v-if="item.icon"> </component>
+										<component :is="menu[0].icon" v-if="menu[0].icon"> </component>
 									</el-icon>
-									<span>{{ item.title }}</span>
+									<span>{{ menu[0].title }}</span>
+								</el-menu-item>
+							</router-link>
+							<router-link :to="{ path: menu[1].router }">
+								<el-menu-item :index="menu[0].id">
+									<el-icon>
+										<!-- 展示组件 -->
+										<component :is="menu[1].icon" v-if="menu[1].icon"> </component>
+									</el-icon>
+									<span>{{ menu[1].title }}</span>
+								</el-menu-item>
+							</router-link>
+							<router-link :to="{ path: menu[2].router }">
+								<el-menu-item :index="menu[2].id">
+									<el-icon>
+										<!-- 展示组件 -->
+										<component :is="menu[2].icon" v-if="menu[2].icon"> </component>
+									</el-icon>
+									<span>{{ menu[2].title }}</span>
+								</el-menu-item>
+							</router-link>
+							<router-link :to="{ path: menu[3].router }">
+								<el-menu-item :index="menu[3].id">
+									<el-icon>
+										<!-- 展示组件 -->
+										<component :is="menu[3].icon" v-if="menu[3].icon"> </component>
+									</el-icon>
+									<span>{{ menu[3].title }}</span>
+								</el-menu-item>
+							</router-link>
+							<router-link :to="{ path: menu[3].router }">
+								<el-menu-item :index="menu[3].id" disabled>
+									<el-icon>
+										<!-- 展示组件 -->
+										<component :is="menu[3].icon" v-if="menu[3].icon"> </component>
+									</el-icon>
+									<span>{{ menu[3].title }}</span>
 								</el-menu-item>
 							</router-link>
 							<!-- 二级菜单 -->
@@ -37,7 +72,6 @@
                 </div>
               </el-sub-menu> -->
 
-						</div>
 					</el-menu>
 				</div>
 				<el-button type="danger" @click="exit">退出登录</el-button>
