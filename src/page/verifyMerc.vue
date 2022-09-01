@@ -55,8 +55,8 @@
         class="awa-tab"
         empty-text="未查询到相关数据"
       >
-        <el-table-column prop="time" label="认证时间" min-width="150" />
-        <el-table-column prop="mid" label="商户id" min-width="100" />
+        <el-table-column prop="time" label="认证时间" min-width="120" />
+        <el-table-column prop="mid" label="商户id" min-width="150" />
         <el-table-column prop="name" label="商户名称" min-width="100" />
         <!-- 状态栏 -->
         <el-table-column label="认证状态" min-width="180">
