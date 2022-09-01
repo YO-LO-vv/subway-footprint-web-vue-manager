@@ -13,7 +13,7 @@
 			</el-row>
 		</div>
 		<div id="foot">
-			<iframe src="/static/xxx.html" id="iFrameC" name="myiframe" frameborder="0" width="100%" scrolling="no"
+			<iframe src="http://thelittlestar.cn:8866/SubwayFootPrint/manager/dist/static/xxx.html" id="iFrameC" name="myiframe" frameborder="0" width="100%" scrolling="no"
 				style="min-height: 500px;"></iframe>
 		</div>
 	</div>
@@ -22,10 +22,10 @@
 
 		<el-form v-model="formInline">
 			<el-form-item>
-				
-<template #label>
-	{{formInline.pid}}
-</template>
+
+				<template #label>
+					{{formInline.pid}}
+				</template>
 				<el-input v-model="formInline.Pro" />
 			</el-form-item>
 		</el-form>
