@@ -14,13 +14,13 @@
     "element-plus": "^2.2.14",
     "jquery": "^3.6.1",
     "lodash": "^4.17.21",
-    "qrcodejs2": "^0.0.2",
     "qs": "^6.11.0",
     "svg-pan-zoom": "^3.6.1",
     "svg-sprite-loader": "^6.0.11",
     "vue": "^3.0.0",
     "vue-amap": "^0.5.10",
     "vue-qr": "^4.0.9",
+    "qrcodejs2": "^0.0.2",
     "vue-router": "^4.1.4",
     "vue-svg-pan-zoom": "^2.1.0",
     "vuex": "^4.0.2"
@@ -47,10 +47,12 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
+
     "rules": {
       "no-unused-vars": "off",
       "no-redeclare": 0
     }
+
   },
   "browserslist": [
     "> 1%",

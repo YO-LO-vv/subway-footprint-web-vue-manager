@@ -67,8 +67,10 @@ const routes = [{ //登陆界面
 ]
 
 const router = createRouter({
-	history: createWebHashHistory(),
-	routes,
-})
+
+    history: createWebHashHistory(process.env.BASE_URL),
+    routes, 
+  })
+
 
 export default router

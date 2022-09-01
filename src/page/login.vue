@@ -12,7 +12,7 @@
           <el-input v-model="LoginForm.user" placeholder="请输入用户名或邮箱" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item  label="密码" prop="pass">
-          <el-input v-model="LoginForm.pass" placeholder="请输入密码" autocomplete="off"></el-input>
+          <el-input v-model="LoginForm.pass" placeholder="请输入密码" autocomplete="off" type="password" show-password></el-input>
         </el-form-item>
         <el-form-item>
           <el-button style="width: 100%;" type="primary" @click="submitForm()">登录</el-button>
@@ -72,11 +72,10 @@ export default {
               //存储token
             if(res.data.code===200) {
               const tokenStr = res.data.data;
-              window.sessionStorage.setItem('tokenStr', tokenStr);
+              localStorage.setItem('token', JSON.stringify(tokenStr));
               localStorage.setItem("uid", LoginForm.user);
-              ElMessage.success(window.sessionStorage.getItem('tokenStr'));
               console.log(tokenStr)
-              ElMessage.success('welcome');
+              ElMessage.success('welcome'+localStorage.getItem("uid"));
               router.push('/toDo');
               if(localStorage.menuid) localStorage.removeItem('menuid')
             }else{

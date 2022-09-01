@@ -1,6 +1,7 @@
 //const webpack = require('webpack')
 
 module.exports = {
+
   devServer: {
   proxy: 'https://thelittlestar.cn:8088/',
   },
@@ -25,3 +26,5 @@ module.exports = {
     });
 },
 }
+
+
