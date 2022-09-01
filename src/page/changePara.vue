@@ -1,13 +1,107 @@
 <template>
-    <div class="ordering">
-        参数修改
-    </div>
+	<div id="dz1">
+		<div>
+			<el-row>
+				
+				<el-col :span="3">
+					<el-button @click="click1">更新地铁图</el-button>
+				</el-col>
+				<el-col :span="3">
+					<el-button @click="click2">站点概率</el-button>
+				</el-col>
+				<el-col :span="18" />
+			</el-row>
+		</div>
+		<div id="foot">
+			<iframe src="/static/xxx.html" id="iFrameC" name="myiframe" frameborder="0" width="100%" scrolling="no"
+				style="min-height: 500px;"></iframe>
+		</div>
+	</div>
 </template>
 
 <script>
+	import {
+		getAllSubways
+	} from "../../api/api";
+	import {
+		onMounted,
+		reactive,
+		ref
+	} from "vue";
+	import _ from "lodash"; //导入loadsh插件
 
+	export default {
+		setup() {
+			//挂载
+
+			onMounted(() => {
+				console.log("mounted");
+				//getSub(131);
+				//监听子页面传参
+				window.addEventListener('message', function(event) {
+					//此处执行事件
+					// console.log('监听到子页面的传参')
+					// console.log(event.data.data)
+					pid.value = event.data.data
+					console.log("pid is:" + pid.value)
+				})
+			});
+			//城市选择
+			const xxx = reactive({
+				subInfo: {},
+				cityChoice: null,
+			});
+			const handleChange = () => {
+				console.log(xxx.cityChoice);
+				getSub(xxx.cityChoice);
+			};
+			//获取地铁数据
+			function getSub(cityCode) {
+				getAllSubways({
+						code: cityCode,
+					})
+					.then((res) => {
+						console.log(res);
+						xxx.subInfo = _.cloneDeep(res.data);
+						console.log(xxx.subInfo);
+					})
+					.catch((err) => console.log(err));
+			}
+			const imgSrc = null;
+			const pid = ref('')
+			const test = () => {
+				console.log(xxx.cityChoice);
+			};
+			return {
+				xxx,
+				test,
+				handleChange,
+				pid
+			};
+		},
+	};
 </script>
 
 <style>
+	#dz1 {
+		background-color: white;
+		position: absolute;
+		top: 60px;
+		left: 0;
+		right: 0;
+		padding: 10px 0;
+		margin: 0 auto;
+		max-width: 100%;
+		display: flex;
+		flex-direction: column;
+		bottom: 0px;
+	}
 
+	#iFrameC {
+		height: 100%;
+	}
+
+	#foot {
+		height: 100%;
+	}
 </style>

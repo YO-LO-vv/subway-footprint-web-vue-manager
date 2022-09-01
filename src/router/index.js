@@ -12,7 +12,7 @@ const routes = [{ //登陆界面
 	{ //登陆界面
 		path: '/QRcode',
 		name: 'QRcode',
-		component: () => import('@/page/qrCOde.vue')
+		component: () => import('@/page/QRcode.vue')
 	},
 
 	{ //主界面
@@ -40,22 +40,7 @@ const routes = [{ //登陆界面
 				path: '/changePara',
 				name: 'changePara',
 				component: () => import('@/page/changePara.vue'),
-			},
-			{ //地铁图更新
-				path: '/updateSub',
-				name: 'updateSub',
-				component: () => import('@/page/updateSub.vue'),
-			},
-			{ //宝箱概率修改
-				path: '/changePro',
-				name: 'changePro',
-				component: () => import('@/page/changePro.vue'),
-			},
-			{ //谈积分修改
-				path: '/changeCre',
-				name: 'changeCre',
-				component: () => import('@/page/changeCre.vue'),
-			},
+			},	
 			{ //测试界面
 				path: '/test',
 				name: 'test',

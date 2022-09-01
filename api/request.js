@@ -5,7 +5,7 @@ const Axios = axios.create({
     timeout: 30000,
     
     headers: { 
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin':'*'
     },
 });
@@ -18,6 +18,7 @@ Axios.interceptors.request.use(req => {
         var token = JSON.parse(localStorage.getItem('token'))
         // req.headers.token = token;  //将token设置成请求头
         req.headers['token']=token
+	//	req.headers['Content-Type']='application/json;charset=UTF-8'
     }
     return req; 
 }, err => {
